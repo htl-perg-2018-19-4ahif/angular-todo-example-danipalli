@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import { EditDialogComponent } from "./edit-dialog/edit-dialog.component";
-
-// import { Observable } from 'rxjs';
 
 interface ITodoItem {
   id: number;
@@ -28,22 +26,21 @@ export class AppComponent {
     this.loadTodos();
   }
 
-  openDialog() {
+  openDialog(editItem: ITodoItem) {
     let dialogRef = this.dialog.open(EditDialogComponent, {
-      height: '400px',
-      width: '600px',
+      width: '300px',
+      data: {id: editItem.id, assignedTo: editItem.assignedTo, description: editItem.description, done: editItem.done}
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`); // Pizza!
+      let res = result as ITodoItem;
+      this.todoList[this.todoList.indexOf(this.todoList.find(item => item.id === res.id))] = res;
     });
-    
-    dialogRef.close('Pizza!');
   }
 
- 
-
-
+  removeItem(id: number) {
+    this.todoList = this.todoList.filter(item => item.id !== id);
+  }
 
   async loadTodos(){
     this.todoList = await this.httpClient.get<ITodoItem[]>('http://localhost:8080/api/todos').toPromise();

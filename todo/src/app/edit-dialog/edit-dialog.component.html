@@ -1,2 +1,21 @@
-<h2 mat-dialog-title>Test</h2>
-<mat-dialog-content>This is a example</mat-dialog-content>
+<h2 mat-dialog-title>Edit Todo Item</h2>
+
+<mat-dialog-content class="dialog-hidden-scroll">
+  <mat-form-field class="dialog-input">
+    <input matInput placeholder="Description" [(ngModel)]="data.description">
+  </mat-form-field><br>
+  
+  <mat-form-field class="dialog-input">
+    <input matInput placeholder="Assigned To" [(ngModel)]="data.assignedTo">
+  </mat-form-field><br>
+
+  <mat-slide-toggle color="primary" [(ngModel)]="data.done">
+      <p *ngIf="data.done">Done</p>
+      <p *ngIf="!data.done">Not Done</p>
+  </mat-slide-toggle>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="close()">Cancel</button>
+  <button mat-button mat-dialog-close (click)="save()">Save</button>
+</mat-dialog-actions>

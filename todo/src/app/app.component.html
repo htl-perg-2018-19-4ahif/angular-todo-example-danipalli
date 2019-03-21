@@ -1,12 +1,9 @@
-<!-- <mat-toolbar color="primary">
+<mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>{{title}}</span>
       <button class="right" mat-button>Add Todo Item<mat-icon class="example-icon">add</mat-icon></button>
     </mat-toolbar-row>
   </mat-toolbar>
-   -->
-   
-  <button mat-button (click)="openDialog()">Open dialog</button>
 
   
 <!-- Filter
@@ -15,7 +12,7 @@
     Add item button
     -->
   
-  <!-- <mat-accordion class="example-headers-align">
+  <mat-accordion class="example-headers-align">
     <mat-expansion-panel hideToggle *ngFor="let item of todoList">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -29,8 +26,8 @@
         <p>{{item.done}}</p>
   
       <mat-action-row>
-          <button mat-icon-button matTooltip="Edit"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button matTooltip="Delete"><mat-icon>delete</mat-icon></button>
+          <button mat-icon-button matTooltip="Edit" (click)="openDialog(item)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button matTooltip="Delete" (click)="removeItem(item.id)"><mat-icon>delete</mat-icon></button>
       </mat-action-row>
     </mat-expansion-panel>
-  </mat-accordion> -->
+  </mat-accordion>
