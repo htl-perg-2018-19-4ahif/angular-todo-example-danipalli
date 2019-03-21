@@ -1,26 +1,36 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>{{title}}</span>
-  </mat-toolbar-row>
-</mat-toolbar>
+<!-- <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>{{title}}</span>
+      <button class="right" mat-button>Add Todo Item<mat-icon class="example-icon">add</mat-icon></button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+   -->
+   
+  <button mat-button (click)="openDialog()">Open dialog</button>
 
-
-
-<mat-accordion class="example-headers-align">
-  <mat-expansion-panel hideToggle *ngFor="let item of todoList">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-          {{item.description}}
-      </mat-panel-title>
-      <mat-panel-description>
-          {{item.assignedTo}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-      <p>{{item.done}}</p>
-
-    <mat-action-row>
-      <button mat-icon-button matTooltip="Delete" color="primary"><mat-icon>delete</mat-icon></button>
-    </mat-action-row>
-  </mat-expansion-panel>
-</mat-accordion>
+  
+<!-- Filter
+    Autocomplete: Person(filter) & assign to
+    Slide togle: show all/uncompleted
+    Add item button
+    -->
+  
+  <!-- <mat-accordion class="example-headers-align">
+    <mat-expansion-panel hideToggle *ngFor="let item of todoList">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{item.description}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{item.assignedTo}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+        <p>{{item.done}}</p>
+  
+      <mat-action-row>
+          <button mat-icon-button matTooltip="Edit"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button matTooltip="Delete"><mat-icon>delete</mat-icon></button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion> -->

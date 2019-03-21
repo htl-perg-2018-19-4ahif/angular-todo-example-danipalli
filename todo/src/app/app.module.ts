@@ -9,16 +9,20 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatTreeModule,
     MatExpansionModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatDialogModule,
     MatTooltipModule
   ],
   providers: [],
