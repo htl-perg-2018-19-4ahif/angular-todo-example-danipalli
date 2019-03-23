@@ -4,16 +4,31 @@
   <mat-form-field class="dialog-input">
     <input matInput placeholder="Description" [(ngModel)]="data.description">
   </mat-form-field><br>
-  
+
   <mat-form-field class="dialog-input">
-    <input matInput placeholder="Assigned To" [(ngModel)]="data.assignedTo">
+    <mat-label>Assigned To</mat-label>
+    <mat-select [(ngModel)]="data.assignedTo">
+      <mat-option *ngFor="let person of data.people" [value]="person.name">
+        {{ person.name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field><br>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Due date" (dateInput)="setDate($event)" (dateChange)="setDate($event)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
 
   <mat-slide-toggle color="primary" [(ngModel)]="data.done">
       <p *ngIf="data.done">Done</p>
       <p *ngIf="!data.done">Not Done</p>
   </mat-slide-toggle>
+
 </mat-dialog-content>
+
+
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close (click)="close()">Cancel</button>

@@ -1,32 +1,54 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
       <span>{{title}}</span>
-      <button class="right" mat-button>Add Todo Item<mat-icon class="example-icon">add</mat-icon></button>
+      <button class="right" (click)="openAddDialog()" mat-button>Add Todo Item<mat-icon class="example-icon">add</mat-icon></button>
     </mat-toolbar-row>
   </mat-toolbar>
 
-  
-<!-- Filter
-    Autocomplete: Person(filter) & assign to
-    Slide togle: show all/uncompleted
-    Add item button
-    -->
+  <mat-card>
+    <table><tr>
+      <td>Filter:</td>
+      <td width="10%"></td>
+      <td>
+          <mat-slide-toggle color="primary" [(ngModel)]="filter.showUndoneOnly" (change)="loadTodos()">
+              <p *ngIf="filter.showUndoneOnly === true">Not done only&nbsp;</p>
+              <p *ngIf="filter.showUndoneOnly !== true">Show all&nbsp;</p>
+          </mat-slide-toggle>
+      </td>
+      <td width="10%"></td>
+      <td>
+        <mat-form-field>
+          <mat-label>Assigned To</mat-label>
+          <mat-select [(ngModel)]="filter.filterForPerson" (valueChange)="loadTodos()">
+            <mat-option *ngFor="let person of people" [value]="person.name">
+              {{ person.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr></table>
+  </mat-card>
   
   <mat-accordion class="example-headers-align">
     <mat-expansion-panel hideToggle *ngFor="let item of todoList">
       <mat-expansion-panel-header>
         <mat-panel-title>
-            {{item.description}}
+            <p>{{item.description}}</p>
         </mat-panel-title>
         <mat-panel-description>
-            {{item.assignedTo}}
+          <p>{{item.assignedTo}}</p>
         </mat-panel-description>
+        <mat-panel-description>
+          <p *ngIf="item.done === true">Done</p>
+          <p *ngIf="item.done !== true">Not Done</p>
+        </mat-panel-description>
+        <mat-panel-description>
+            <p>{{getDate(item.dueTo)}}</p>
+          </mat-panel-description>
       </mat-expansion-panel-header>
   
-        <p>{{item.done}}</p>
-  
       <mat-action-row>
-          <button mat-icon-button matTooltip="Edit" (click)="openDialog(item)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button matTooltip="Edit" (click)="openEditDialog(item)"><mat-icon>edit</mat-icon></button>
         <button mat-icon-button matTooltip="Delete" (click)="removeItem(item.id)"><mat-icon>delete</mat-icon></button>
       </mat-action-row>
     </mat-expansion-panel>
