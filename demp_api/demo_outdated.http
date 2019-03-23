@@ -1,0 +1,32 @@
+@host = http://localhost:8080/api
+
+// Get a list of people
+GET {{host}}/people
+
+###
+// Add a todo item
+POST {{host}}/todos
+Content-Type: application/json
+
+{
+  "description": "Test",
+  "assignedTo": "Eve"
+}
+
+###
+// Update todo item
+PATCH {{host}}/todos/0
+Content-Type: application/json
+
+{
+  "description": "Homework",
+  "assignedTo": ""
+}
+
+###
+GET {{host}}/todos
+
+###
+// Delete todo item
+DELETE {{host}}/todos/0
+
