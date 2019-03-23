@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {MatDialog} from '@angular/material';
-import { EditDialogComponent } from "./edit-dialog/edit-dialog.component";
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { timeout } from 'q';
 
 interface IPerson {
@@ -29,22 +29,22 @@ interface IFilter {
 
 export class AppComponent {
   title = 'ToDo List';
-  host = "http://localhost:8080/api";
-  
-  public people: IPerson[] = [{name:""}];
-  public todoList: ITodoItem[];
-  public filter: IFilter = {showUndoneOnly: false, filterForPerson: ""};
-  
-  
-  constructor(private httpClient: HttpClient, private dialog: MatDialog) { 
+  host = 'http://localhost:8080/api';
+  people: IPerson[] = [{name: ''}];
+  todoList: ITodoItem[];
+  filter: IFilter = {showUndoneOnly: false, filterForPerson: ''};
+
+
+  constructor(private httpClient: HttpClient, private dialog: MatDialog) {
     this.loadTodos();
     this.loadPeople();
   }
 
   openEditDialog(editItem: ITodoItem) {
-    let dialogRef = this.dialog.open(EditDialogComponent, {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '300px',
-      data: {people: this.people, id: editItem.id, assignedTo: editItem.assignedTo, description: editItem.description, dueTo: editItem.dueTo, done: editItem.done}
+      data: {people: this.people, id: editItem.id, assignedTo: editItem.assignedTo,
+        description: editItem.description, dueTo: editItem.dueTo, done: editItem.done}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -53,9 +53,9 @@ export class AppComponent {
   }
 
   openAddDialog() {
-    let dialogRef = this.dialog.open(EditDialogComponent, {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
       width: '300px',
-      data: {people: this.people, id: null, assignedTo: "", description: "", dueTo: (new Date).getTime, done: false}
+      data: {people: this.people, id: null, assignedTo: '', description: '', dueTo: (new Date()).getTime, done: false}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -63,38 +63,40 @@ export class AppComponent {
     });
   }
 
-  async loadTodos(){
-    this.todoList = await this.httpClient.get<ITodoItem[]>(this.host+'/todos').toPromise();
-    if(this.filter.showUndoneOnly){
+  async loadTodos() {
+    this.todoList = await this.httpClient.get<ITodoItem[]>(this.host + '/todos').toPromise();
+    if (this.filter.showUndoneOnly) {
       this.todoList = this.todoList.filter(item => item.done !== true);
     }
-    if(this.filter.filterForPerson !== ""){
+    if (this.filter.filterForPerson !== '') {
       this.todoList = this.todoList.filter(item => item.assignedTo === this.filter.filterForPerson);
     }
   }
 
-  async loadPeople(){
-    this.people = this.people.concat(await this.httpClient.get<IPerson[]>(this.host+'/people').toPromise());
+  async loadPeople() {
+    this.people = this.people.concat(await this.httpClient.get<IPerson[]>(this.host + '/people').toPromise());
   }
 
-  async addTodo(item: ITodoItem){
-    await this.httpClient.post<ITodoItem[]>(this.host+'/todos',{description: item.description, assignedTo: item.assignedTo, dueTo: item.dueTo, done: item.done}).toPromise();
+  async addTodo(item: ITodoItem) {
+    await this.httpClient.post<ITodoItem[]>(this.host + '/todos',
+      {description: item.description, assignedTo: item.assignedTo, dueTo: item.dueTo, done: item.done}).toPromise();
     this.loadTodos();
   }
 
-  async updateTodo(item: ITodoItem){
-    await this.httpClient.patch<ITodoItem[]>(this.host+'/todos/'+item.id,{description: item.description, assignedTo: item.assignedTo, dueTo: item.dueTo, done: item.done}).toPromise();
+  async updateTodo(item: ITodoItem) {
+    await this.httpClient.patch<ITodoItem[]>(this.host + '/todos/' + item.id,
+      {description: item.description, assignedTo: item.assignedTo, dueTo: item.dueTo, done: item.done}).toPromise();
     this.loadTodos();
   }
 
   async removeItem(id: number) {
     this.todoList = this.todoList.filter(item => item.id !== id);
-    await this.httpClient.delete<ITodoItem[]>(this.host+'/todos/'+id).toPromise();
+    await this.httpClient.delete<ITodoItem[]>(this.host + '/todos/' + id).toPromise();
     this.loadTodos();
   }
 
-  getDate(time: number){
-    let date: Date = new Date(time);
+  getDate(time: number) {
+    const date: Date = new Date(time);
     return date.toDateString();
   }
 

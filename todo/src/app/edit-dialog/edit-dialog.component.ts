@@ -26,13 +26,11 @@ export class EditDialogComponent {
   @ViewChild(MatDatepicker) datepicker: MatDatepicker<Date>;
   constructor(public dialogRef: MatDialogRef<EditDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: IInputParams) {}
 
-  
-
   setDate(event: MatDatepickerInputEvent<Date>) {
-    try{
-      let date: number = event.value.getTime();
+    try {
+      const date: number = event.value.getTime();
       this.data.dueTo = date;
-    }catch(error){
+    } catch (error) {
       // Do nothing
     }
   }
